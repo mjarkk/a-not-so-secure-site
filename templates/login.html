@@ -5,8 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Login</title>
+  {{.Meta.CSS}}
 </head>
 <body>
-  
+  <div class="header"></div>
+  <div class="site">
+    <div class="form login">
+      <form action="/login" method="POST">
+        <h3>Login</h3>
+        Username:<br>
+        <input type="text" name="Username"><br>
+        Password:<br>
+        <input type="text" name="Password"><br>
+        <input type="submit">
+      </form>
+    </div>
+    <div class="form register">
+      <form action="/register" method="POST">
+        <h3>Regiter</h3>
+        Username:<br>
+        <input type="text" name="Username"><br>
+        Password:<br>
+        <input type="text" name="Password"><br>
+        <input type="submit">
+      </form>
+    </div>
+  </div> 
 </body>
 </html>

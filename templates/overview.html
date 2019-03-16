@@ -5,8 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Overview</title>
+  {{.Meta.CSS}}
 </head>
 <body>
-  
+  <div class="header"></div>
+  <div class="site">
+    {{range $post := .Posts}}
+      <a class="post hover" href="/post/{{$post.ID}}">
+        <h3>{{$post.Title}}</h3>
+        <p>by {{$post.User.Username}}</p>
+      </a>
+    {{end}}
+  </div>  
 </body>
 </html>

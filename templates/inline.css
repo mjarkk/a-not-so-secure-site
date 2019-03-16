@@ -1,0 +1,41 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+body {
+  font-family: sans-serif;
+}
+.site {
+  margin: 0px auto;
+  max-width: 700px;
+  padding: 20px;
+  border-right: 2px solid #eee;
+  border-left: 2px solid #eee;
+}
+.post {
+  border: 2px solid #eee;
+  margin: 10px 0px;
+  padding: 10px;
+  border-radius: 8px;
+  display: block;
+  color: black;
+  text-decoration: none;
+}
+.post.hover:hover {
+  background-color: #eee;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.form {
+  padding: 20px 0px;
+}
+input {
+  font-size: 18px;
+  padding: 5px;
+  border-radius: 4px;
+  border: 2px solid #ddd;
+  margin-bottom: 4px;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}

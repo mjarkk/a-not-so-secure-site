@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/mjarkk/a-not-so-secure-site/database"
 	"github.com/mjarkk/a-not-so-secure-site/server"
@@ -17,8 +18,12 @@ func main() {
 	}()
 
 	go func() {
-		err := server.Init()
+		end <- server.Init()
 	}()
 	err := <-end
+	if err == nil {
+		fmt.Println("server stopped working")
+		os.Exit(1)
+	}
 	fmt.Println("ERROR:", err)
 }
