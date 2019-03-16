@@ -3,11 +3,10 @@ package templates
 import (
 	"bytes"
 	"errors"
+	"io/ioutil"
 	"path"
 	"strings"
 	"text/template"
-
-	"unknownclouds.com/root/kpn-xml-to-conf/fs"
 )
 
 // GetTemplate returns a template
@@ -28,7 +27,7 @@ func OpenTemplateFile(fileName string) (*template.Template, error) {
 		return nil, errors.New("not a valid file name")
 	}
 
-	content, err := fs.FileContents(path.Join("templates", fileName+".html"))
+	content, err := FileContents(path.Join("templates", fileName+".html"))
 	if err != nil {
 		return nil, err
 	}
@@ -37,4 +36,13 @@ func OpenTemplateFile(fileName string) (*template.Template, error) {
 		return nil, err
 	}
 	return tmpl, nil
+}
+
+// FileContents returns the file content
+func FileContents(file string) (string, error) {
+	out, err := ioutil.ReadFile(file)
+	if err != nil {
+		return "", err
+	}
+	return string(out), nil
 }
