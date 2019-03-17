@@ -15,11 +15,11 @@ type PostT struct {
 
 // SeedPosts ads some data to the database
 func SeedPosts() error {
-	err := NewPost("Welcom", "This is a unsecure site :), sql injections and xss work everywhere here", 2)
+	err := NewPost("Welcom", "This is a unsecure site :), sql injections and xss work everywhere here", "2")
 	if err != nil {
 		return err
 	}
-	err = NewPost("users and there passwords", "admin -> a-cool-password<br>lol -> 123<br>Not as if they are fully visable in the database", 1)
+	err = NewPost("users and there passwords", "admin -> a-cool-password<br>lol -> 123<br>Not as if they are fully visable in the database", "1")
 	return err
 }
 
@@ -48,6 +48,10 @@ func Posts() ([]PostT, error) {
 		toReturn = append(toReturn, toAdd)
 	}
 
+	for i, j := 0, len(toReturn)-1; i < j; i, j = i+1, j-1 {
+		toReturn[i], toReturn[j] = toReturn[j], toReturn[i]
+	}
+
 	return toReturn, nil
 }
 
@@ -55,7 +59,7 @@ func Posts() ([]PostT, error) {
 func Post(whereWhat, is string) (PostT, error) {
 	_, err := strconv.ParseInt(is, 10, 64)
 	if err != nil {
-		is = "`" + is + "`"
+		is = "\"" + is + "\""
 	}
 
 	toReturn := PostT{}
@@ -74,7 +78,7 @@ func Post(whereWhat, is string) (PostT, error) {
 }
 
 // NewPost creates a new user
-func NewPost(title, content string, userID uint32) error {
+func NewPost(title, content, userID string) error {
 	query := fmt.Sprintf(
 		"INSERT INTO posts (title, content, userID) VALUES (\"%v\", \"%v\", %v)",
 		title,

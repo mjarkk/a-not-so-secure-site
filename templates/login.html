@@ -8,8 +8,9 @@
   {{.Meta.CSS}}
 </head>
 <body>
-  <div class="header"></div>
+  {{.Meta.Header}}
   <div class="site">
+    <a href="/">< Terug</a>
     <div class="form login">
       <form action="/login" method="POST">
         <h3>Login</h3>
@@ -18,6 +19,13 @@
         Password:<br>
         <input type="text" name="Password"><br>
         <input type="submit">
+        <div class="errors">
+          {{range $item := .Errors}}
+            {{if eq $item.What "login"}} 
+              <div class="error">{{$item.Err}}</div>
+            {{end}}
+          {{end}}
+        </div>
       </form>
     </div>
     <div class="form register">
@@ -28,6 +36,13 @@
         Password:<br>
         <input type="text" name="Password"><br>
         <input type="submit">
+        <div class="errors">
+          {{range $item := .Errors}}
+            {{if eq $item.What "register"}} 
+              <div class="error">{{$item.Err}}</div>
+            {{end}}
+          {{end}}
+        </div>
       </form>
     </div>
   </div> 

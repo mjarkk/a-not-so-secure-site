@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Post</title>
+  <title>Create</title>
   {{.Meta.CSS}}
 </head>
 <body>
@@ -12,9 +12,12 @@
   <div class="site">
     <a href="/">< Terug</a>
     <div class="post">
-      <h3>{{.Post.Title}}</h3>
-      <p>by {{.Post.User.Username}}</p>
-      <div>{{.Post.Content}}</div>
+      <form action="/create" method="POST">
+        <h3>Create post</h3>
+        <input name="Title" type="text">
+        <textarea name="Content" rows="5" cols="80"></textarea>
+        <input type="submit" value="Post">
+      </form>
     </div>
   </div>  
 </body>

@@ -4,6 +4,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/mjarkk/a-not-so-secure-site/credentials"
+
 	"github.com/gin-gonic/gin"
 	"github.com/mjarkk/a-not-so-secure-site/database"
 )
@@ -24,12 +26,30 @@ func genMeta(c *gin.Context) Meta {
 		toReturn.CSS = "<style>" + string(cssData) + "</style>"
 	}
 
+	key, err := c.Cookie("sessionKey")
+	if err == nil {
+		if user, ok := credentials.GetSession(key); ok {
+			toReturn.LogedIn = true
+			toReturn.User = user
+		}
+	}
+
+	header, err := GetTemplate("header", toReturn)
+	if err == nil {
+		toReturn.Header = header
+	} else {
+		toReturn.Header = "<div class=\"header\">Error while rendering the header: " + err.Error() + "</div>"
+	}
+
 	return toReturn
 }
 
 // Meta contains meta information about the site
 type Meta struct {
-	CSS string
+	CSS     string
+	LogedIn bool
+	User    database.UserT
+	Header  string
 }
 
 // OverViewT is the data for the overview template
@@ -104,6 +124,21 @@ func Login(c *gin.Context, loginErrors ...LoginErr) {
 	out, err := GetTemplate("login", LoginT{
 		Meta:   genMeta(c),
 		Errors: loginErrors,
+	})
+	renderOut(c, out, err)
+}
+
+// CreatePostT is the data type for the /create route
+type CreatePostT struct {
+	Meta Meta
+}
+
+// CreatePost is the handeler for the /craete route
+func CreatePost(c *gin.Context) {
+	meta := genMeta(c)
+
+	out, err := GetTemplate("create", CreatePostT{
+		Meta: meta,
 	})
 	renderOut(c, out, err)
 }

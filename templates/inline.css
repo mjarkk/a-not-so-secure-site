@@ -39,3 +39,12 @@ input {
   color: black;
   font-weight: bold;
 }
+.header {
+  padding: 5px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  border-bottom: 2px solid #eee;
+}

@@ -8,8 +8,13 @@
   {{.Meta.CSS}}
 </head>
 <body>
-  <div class="header"></div>
+  {{.Meta.Header}}
   <div class="site">
+    {{if .Meta.LogedIn}}
+      <a class="createPost" href="/create">
+        <h2>preate post</h2>
+      </a>
+    {{end}}
     {{range $post := .Posts}}
       <a class="post hover" href="/post/{{$post.ID}}">
         <h3>{{$post.Title}}</h3>

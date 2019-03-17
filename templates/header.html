@@ -1,0 +1,7 @@
+<div class="header">
+  {{if .LogedIn}}
+    <a href="/user/{{.User.ID}}">Logged in as: {{.User.Username}}</a>
+  {{else}}
+    <a href="/login">Login / register</a>
+  {{end}}
+</div>

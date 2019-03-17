@@ -5,6 +5,8 @@ import (
 	"math/big"
 	mathRand "math/rand"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 // RandomString generates a purly random string with the lenght of n
@@ -43,4 +45,20 @@ func GetDomain(input string, removePort bool) string {
 	workingOn = strings.Split(workingOn, "?")[0]
 
 	return workingOn
+}
+
+// IsHTTPS returns true if the input string has a https prefix
+func IsHTTPS(input string) bool {
+	return strings.HasPrefix(input, "https:")
+}
+
+// MKFullPath adds the origin (host) to a path
+func MKFullPath(c *gin.Context, path string) string {
+	origin := c.GetHeader("Origin")
+	domain := GetDomain(origin, false)
+	prefix := "http"
+	if IsHTTPS(origin) {
+		prefix = "https"
+	}
+	return prefix + "://" + domain + path
 }

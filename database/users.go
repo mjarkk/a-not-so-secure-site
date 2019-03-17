@@ -46,13 +46,13 @@ func Users() ([]UserT, error) {
 func User(whereWhat, is string) (UserT, error) {
 	_, err := strconv.ParseInt(is, 10, 64)
 	if err != nil {
-		is = "`" + is + "`"
+		is = "\"" + is + "\""
 	}
 
 	toReturn := UserT{}
 	row := DB.QueryRow("SELECT username, password, ID FROM users WHERE " + whereWhat + " = " + is)
-
 	err = row.Scan(&toReturn.Username, &toReturn.Password, &toReturn.ID)
+
 	return toReturn, err
 }
 
