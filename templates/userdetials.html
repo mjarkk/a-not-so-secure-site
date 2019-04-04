@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>User Detials</title>
+  {{.Meta.CSS}}
+</head>
+<body>
+  {{.Meta.Header}}
+  <div class="site">
+    <a href="/">< Terug</a>
+    {{if .Meta.LogedIn}}
+    <div class="form login">
+      <form action="/userDetials" enctype="multipart/form-data" method="POST">
+        <h3>{{.Meta.User.Username}}</h3>
+        Username:<br>
+        <input type="text" name="Username" value="{{.Meta.User.Username}}"><br>
+        Password:<br>
+        <input type="password" name="Password" value="{{.Meta.User.Password}}"><br>
+        Profile Picture:<br>
+        <input type="file" name="UserImage">
+        <br>
+        <input type="submit">
+      </form>
+    </div>
+    {{end}}
+  </div> 
+</body>
+</html>

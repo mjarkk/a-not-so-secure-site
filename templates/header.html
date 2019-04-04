@@ -1,5 +1,6 @@
 <div class="header">
   {{if .LogedIn}}
+    <img src="/userImages/{{.User.ID}}"/>
     <a href="/user/{{.User.ID}}">Logged in as: {{.User.Username}}</a>
   {{else}}
     <a href="/login">Login / register</a>

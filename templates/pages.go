@@ -142,3 +142,13 @@ func CreatePost(c *gin.Context) {
 	})
 	renderOut(c, out, err)
 }
+
+// UserDetials is the page for updating the user detials
+func UserDetials(c *gin.Context) {
+	meta := genMeta(c)
+
+	out, err := GetTemplate("userdetials", CreatePostT{
+		Meta: meta,
+	})
+	renderOut(c, out, err)
+}

@@ -29,3 +29,8 @@ func GetSession(key string) (database.UserT, bool) {
 	user, ok := sessions[key]
 	return user, ok
 }
+
+// UpdateSession updates a session
+func UpdateSession(key string, user database.UserT) {
+	sessions[key] = user
+}

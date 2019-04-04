@@ -48,3 +48,15 @@ input {
   flex-direction: row;
   border-bottom: 2px solid #eee;
 }
+
+.header img {
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 10px;
+}
+
+h3 img {
+  border-radius: 4px;
+  height: 30px;
+  padding-right: 10px;
+}

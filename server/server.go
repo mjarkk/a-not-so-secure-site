@@ -3,6 +3,7 @@ package server
 import (
 	"errors"
 	"fmt"
+	"io/ioutil"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mjarkk/a-not-so-secure-site/credentials"
@@ -20,11 +21,53 @@ func Init() error {
 	r.GET("/post/:id", templates.Post)
 	r.GET("/login", login)
 	r.GET("/create", templates.CreatePost)
+	r.GET("/userDetials", templates.UserDetials)
+	r.POST("/userDetials", updateDetials)
 	r.POST("/create", createPost)
 	r.POST("/login", postLogin)
 	r.POST("/register", register)
+	r.Static("/userImages", "./userImages")
 	fmt.Println("server running on localhost:8080")
 	return r.Run()
+}
+
+func updateDetials(c *gin.Context) {
+	key, err := c.Cookie("sessionKey")
+	if err != nil {
+		c.Redirect(302, utils.MKFullPath(c, "/"))
+		return
+	}
+	user, ok := credentials.GetSession(key)
+	if !ok {
+		c.Redirect(302, utils.MKFullPath(c, "/"))
+		return
+	}
+
+	user.Password = c.PostForm("Password")
+	user.Username = c.PostForm("Username")
+
+	postFile, err := c.FormFile("UserImage")
+	if err == nil {
+		file, err := postFile.Open()
+		if err != nil {
+			c.String(400, err.Error())
+			return
+		}
+
+		data := make([]byte, postFile.Size)
+		_, err = file.Read(data)
+		if err != nil {
+			c.String(400, err.Error())
+			return
+		}
+		err = ioutil.WriteFile("./userImages/"+user.ID, data, 0666)
+		if err != nil {
+			c.String(400, err.Error())
+			return
+		}
+	}
+
+	credentials.UpdateSession(key, user)
 }
 
 func createPost(c *gin.Context) {

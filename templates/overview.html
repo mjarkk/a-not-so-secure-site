@@ -12,7 +12,10 @@
   <div class="site">
     {{if .Meta.LogedIn}}
       <a class="createPost" href="/create">
-        <h2>preate post</h2>
+        <h2>Create post</h2>
+      </a>
+      <a class="createPost" href="/userDetials">
+        <h2>User detials</h2>
       </a>
     {{end}}
     {{range $post := .Posts}}
