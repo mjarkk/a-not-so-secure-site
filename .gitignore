@@ -12,3 +12,4 @@
 *.out
 
 a-not-so-secure-site*
+userImages/*
